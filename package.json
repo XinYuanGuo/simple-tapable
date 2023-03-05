@@ -1,0 +1,25 @@
+{
+  "name": "simple-tapable",
+  "version": "1.0.0",
+  "description": "简易版的tapable",
+  "main": "index.js",
+  "scripts": {
+    "sync": "node ./sync-hooks.js",
+    "asyncP": "node ./async-parallel-hook.js",
+    "asyncPP": "node ./async-parallel-promise-hook.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XinYuanGuo/simple-tapable.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XinYuanGuo/simple-tapable/issues"
+  },
+  "homepage": "https://github.com/XinYuanGuo/simple-tapable#readme",
+  "dependencies": {
+    "tapable": "^2.2.1"
+  }
+}
