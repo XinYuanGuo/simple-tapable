@@ -4,10 +4,24 @@ class Hook {
     this.args = Array.isArray(args) ? args : [args];
     // 存放的回调函数
     this.taps = [];
+    // 拦截器
+    this.interceptors = [];
     // 代理的call方法，调用后会动态生成函数
     this.call = CALL_DELEGATE;
     this.callAsync = CALL_ASYNC_DELEGATE;
     this.promise = PROMISE_DELEGATE;
+  }
+
+  intercept(interceptor) {
+    this.interceptors.push(interceptor);
+  }
+
+  runRegisterInterceptors(tapInfo) {
+    for (const interceptor of this.interceptors) {
+      if (interceptor.register) {
+        interceptor.register(tapInfo);
+      }
+    }
   }
 
   tap(options, fn) {
@@ -30,6 +44,7 @@ class Hook {
       };
     }
     const tapInfo = { ...options, type, fn };
+    this.runRegisterInterceptors(tapInfo);
     this._insert(tapInfo);
   }
 
@@ -42,6 +57,7 @@ class Hook {
     return this.compile({
       taps: this.taps,
       args: this.args,
+      interceptors: this.interceptors,
       type,
     });
   }
